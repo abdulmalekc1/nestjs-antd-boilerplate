@@ -1,37 +1,55 @@
-import { DashboardOutlined, ShopOutlined } from "@ant-design/icons"
+import { DashboardOutlined, ShopOutlined } from "@ant-design/icons";
 
 export const useAdminMenu = () => {
-    // you can filter items by current user role etc.
+  // you can filter items by current user role etc.
 
-    const menu = {
-        path: '/admin',
+  const menu = {
+    path: "/admin",
+    routes: [
+      {
+        path: "/admin/dashboard",
+        icon: <DashboardOutlined />,
+        key: "dashboard",
+        name: "Dashboard",
+      },
+      {
+        path: "/admin/properties",
+        icon: <ShopOutlined />,
+        key: "properties",
+        name: "Properties",
         routes: [
-            {  
-                path: '/admin/dashboard',
-                icon: <DashboardOutlined />,
-                key: 'dashboard',
-                name: 'Dashboard',
-            },
-            {
-                path: '/admin/properties',
-                icon: <ShopOutlined />,
-                key: 'properties',
-                name: 'Properties',
-                routes: [
-                    {
-                        path: 'create',
-                        hideInMenu: true,
-                        name: 'Create Property'
-                    },
-                    {
-                        path: 'edit/:id',
-                        hideInMenu: true,
-                        name: 'Update Property'
-                    },
-                ]
-            }
-        ]
-    }
+          {
+            path: "create",
+            hideInMenu: true,
+            name: "Create Property",
+          },
+          {
+            path: "edit/:id",
+            hideInMenu: true,
+            name: "Update Property",
+          },
+        ],
+      },
+      {
+        path: "/admin/categories",
+        icon: <ShopOutlined />,
+        key: "categories",
+        name: "Categories",
+        routes: [
+          {
+            path: "create",
+            hideInMenu: true,
+            name: "Create Category",
+          },
+          {
+            path: "edit/:id",
+            hideInMenu: true,
+            name: "Update Category",
+          },
+        ],
+      },
+    ],
+  };
 
-    return menu;
-}
+  return menu;
+};

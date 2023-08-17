@@ -1,4 +1,8 @@
-import { ClassSerializerInterceptor, Module, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +13,7 @@ import databaseConfig from './database/config';
 import { TypeormConfigService } from './database/typeorm-config-service';
 import { PropertyModule } from './properties/properties.module';
 import { UsersModule } from './users/users.module';
+import { CategoryModule } from './categories/category.module';
 
 @Module({
   imports: [
@@ -22,6 +27,7 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     UsersModule,
     PropertyModule,
+    CategoryModule,
   ],
   providers: [
     {
@@ -30,8 +36,8 @@ import { UsersModule } from './users/users.module';
     },
     {
       provide: APP_PIPE,
-      useFactory: () => new ValidationPipe({ transform: true })
-    }
-  ]
+      useFactory: () => new ValidationPipe({ transform: true }),
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,38 +1,40 @@
 import { ProCard, ProForm } from "@ant-design/pro-components";
 import { AntPageContainer } from "../../shared/components/AntPageContainer";
-import { ListingType, PropertyType } from "../enums";
-import { PropertyFormFields } from "../components/field-groups/PropertyFormFields";
+import { CategoryType } from "../enums";
+import { CategoryFormFields } from "../components/field-groups/CategoryFormFields";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import propertiesApi from "../api";
 import {
-  CreatePropertyFormState,
+  CreateCategoryFormState,
   toApiRequest,
-} from "../form-state/create-property-form-state";
+} from "../form-state/create-category-form-state";
+import { useAuthUser } from "../../auth/hooks/useAuthUser";
 
-export const CreateProperty = () => {
+export const CreateCategory = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+
+  const { user } = useAuthUser();
 
   return (
     <AntPageContainer>
       {contextHolder}
       <ProCard>
-        <ProForm<CreatePropertyFormState>
+        <ProForm<CreateCategoryFormState>
           grid
           onFinish={async (data) => {
-            const request = toApiRequest(data);
+            const request = toApiRequest({ ...data, userId: user?.id || "" });
             await propertiesApi.create(request);
 
             messageApi.success("Created");
             navigate(-1);
           }}
           initialValues={{
-            propertyType: PropertyType.Apartment,
-            listingType: ListingType.Rent,
+            type: CategoryType.Beginner,
           }}
         >
-          <PropertyFormFields />
+          <CategoryFormFields />
         </ProForm>
       </ProCard>
     </AntPageContainer>
